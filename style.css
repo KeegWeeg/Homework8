@@ -5,19 +5,17 @@
   grid-template-areas:
     "header header"
     "aside  main"
-    
     "footer footer";
   min-height: 100vh;                       
   font-family: system-ui, Arial, sans-serif;
   color: #111;
 }
 
-header 
-{ 
+header { 
   grid-area: header; 
   padding: 1rem 1.25rem; 
   border-bottom: 1px solid #ddd; 
-  position: sticky;           
+  position: sticky;            
   top: 0;
   background: #fff;
   z-index: 5;
@@ -29,7 +27,7 @@ aside  {
 }
 
 .nav {
-  display: flex;               
+  display: flex;                
   flex-direction: column;       
   gap: 0.5rem;                  
   padding: 1rem;
@@ -42,8 +40,7 @@ aside  {
   color: #111;
 }
 
-.nav a:hover 
-{ 
+.nav a:hover { 
   background: #f1f5f9;          
 }
 
@@ -61,7 +58,6 @@ aside  {
   padding: 0.45rem 0.7rem;
   border-radius: 999px;
   font-weight: 600;
-
   transition: background-color 0.3s ease, border-radius 0.3s ease;
 }
 
@@ -73,14 +69,13 @@ aside  {
 main   { 
   grid-area: main;   
   padding: 1rem 1.25rem; 
-  display: grid;          
+  display: grid;           
   grid-template-columns: 1fr;
   gap: 1rem;
 }
 
 footer { 
   grid-area: footer; 
-  
   padding: 1rem 1.25rem; 
   border-top: 1px solid #ddd; 
   position: relative;                    
@@ -128,7 +123,6 @@ thead th {
   margin: 0.5rem 0 0;
 }
 
-
 .skills-list {
   list-style: none;
   padding: 0;
@@ -144,7 +138,6 @@ thead th {
   padding: 0.45rem 0.65rem;
   border-radius: 999px;
   background: #f8fafc;
-
   transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
@@ -152,7 +145,6 @@ thead th {
   transform: scale(1.05);
   background-color: #e8f4ff;
 }
-
 
 #projects .grid {
   display: grid;                          
@@ -172,13 +164,7 @@ thead th {
   height: auto;
   border-radius: 0.4rem;
   margin-top: 0.5rem;
-
   transition: transform 0.3s ease, opacity 0.3s ease;
-}
-.float-gallery::after {
-  content: "";
-  display: table;
-  clear: both;
 }
 
 .project img:hover {
@@ -186,7 +172,11 @@ thead th {
   opacity: 0.95;
 }
 
-
+.float-gallery::after {
+  content: "";
+  display: table;
+  clear: both;
+}
 
 .float-gallery img {
   float: left;
@@ -194,7 +184,6 @@ thead th {
   margin-right: 2%;
   margin-bottom: 0.75rem;
   border-radius: 0.25rem;
-
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
@@ -206,6 +195,7 @@ thead th {
   opacity: 0.9;
   transform: scale(1.02);
 }
+
 @media (max-width: 1024px) {
   .layout {
     grid-template-columns: 200px 1fr;
