@@ -93,7 +93,6 @@ footer .contact {
   text-align: right;
 }
 
-/* Tables */
 table { 
   width: 100%; 
   border-collapse: collapse; 
@@ -260,5 +259,6 @@ thead th {
     margin-right: 0;
   }
 }
+
 
 
