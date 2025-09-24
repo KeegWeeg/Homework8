@@ -175,6 +175,11 @@ thead th {
 
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
+.float-gallery::after {
+  content: "";
+  display: table;
+  clear: both;
+}
 
 .project img:hover {
   transform: scale(1.03);
@@ -255,6 +260,7 @@ thead th {
     margin-right: 0;
   }
 }
+
 
 
 
