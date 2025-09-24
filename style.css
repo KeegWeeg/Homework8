@@ -1,121 +1,158 @@
+
 .layout {
-  display: grid;
-  grid-template-columns: 260px 1fr;     
-  grid-template-rows: auto 1fr auto;    
+  display: grid;                          
+  grid-template-columns: 240px 1fr;       
+  grid-template-rows: auto 1fr auto;      
   grid-template-areas:
     "header header"
     "aside  main"
     "footer footer";
-  min-height: 100vh;
+  min-height: 100vh;                       
   font-family: system-ui, Arial, sans-serif;
   color: #111;
 }
 
-header { grid-area: header; padding: 1rem 1.25rem; border-bottom: 1px solid #ddd; }
-aside  { grid-area: aside;  border-right: 1px solid #ddd; }
-main   { grid-area: main;   padding: 1rem 1.25rem; }
-footer { grid-area: footer; padding: 1rem 1.25rem; border-top: 1px solid #ddd; position: relative; }
+
+header { 
+  grid-area: header; 
+  padding: 1rem 1.25rem; 
+  border-bottom: 1px solid #ddd; 
+}
+
+aside  { 
+  grid-area: aside;  
+  border-right: 1px solid #ddd; 
+}
+
+main   { 
+  grid-area: main;   
+  padding: 1rem 1.25rem; 
+}
+
+footer { 
+  grid-area: footer; 
+  padding: 1rem 1.25rem; 
+  border-top: 1px solid #ddd; 
+  position: relative;                    
+}
+
 
 .nav {
-  display: flex;
-  flex-direction: column;     
-  gap: .5rem;
+  display: flex;                           
+  flex-direction: column;                
+  gap: 0.5rem;                          
   padding: 1rem;
 }
 
 .nav a {
-  padding: .5rem .6rem;
-  border-radius: .5rem;
+  padding: 0.5rem 0.6rem;
+  border-radius: 0.5rem;
   text-decoration: none;
   color: #111;
 }
-.nav a:hover { background: #f1f5f9; }
 
-.resume-wrap { position: relative; margin-top: .5rem; }
+.nav a:hover { 
+  background: #f1f5f9;                    
+}
+
+
+.resume-wrap { 
+  position: relative; 
+  margin-top: 0.5rem; 
+}
+
 .resume-btn {
-  position: absolute;
+  position: absolute;                      
   right: 0;
   top: 0;
   background: #0ea5e9;
   color: white;
-  padding: .45rem .7rem;
-  border-radius: 999px;
+  padding: 0.45rem 0.7rem;
+  border-radius: 999px;                    
   font-weight: 600;
 }
-.resume-btn:hover { background: #0284c7; }
+
+.resume-btn:hover { 
+  background: #0284c7; 
+}
 
 #summary p {
   line-height: 1.7;
-  margin: .5rem 0 0;
+  margin: 0.5rem 0 0;
 }
 
-#education, #experience {
+#education, 
+#experience {
   margin-top: 1rem;
 }
 
-#education h2, #experience h2, #summary h2, #skills h2, #projects h2 {
-  margin: 0 0 .6rem;
+#education h2, 
+#experience h2, 
+#summary h2, 
+#skills h2, 
+#projects h2 {
+  margin: 0 0 0.6rem;
   font-size: 1.4rem;
 }
 
-table { width: 100%; border-collapse: collapse; }
-th, td { padding: .6rem .75rem; border-bottom: 1px solid #eee; text-align: left; }
-thead th { background: #f7f7f8; font-weight: 600; }
+table { 
+  width: 100%; 
+  border-collapse: collapse; 
+}
+
+th, td { 
+  padding: 0.6rem 0.75rem; 
+  border-bottom: 1px solid #eee; 
+  text-align: left; 
+}
+
+thead th { 
+  background: #f7f7f8; 
+  font-weight: 600; 
+}
 
 .skills-list {
   list-style: none;
   padding: 0;
-  margin: .5rem 0 0;
-  display: flex;
-  flex-wrap: wrap;      
-  gap: .5rem .6rem;
+  margin: 0.5rem 0 0;
+  display: flex;                         
+  flex-wrap: wrap;                         
+  gap: 0.5rem 0.6rem;                     
   align-items: center;
   justify-content: flex-start;
 }
 
 .skills-list li {
   border: 1px solid #e5e7eb;
-  padding: .45rem .65rem;
+  padding: 0.45rem 0.65rem;
   border-radius: 999px;
   background: #f8fafc;
 }
 
+
 #projects .grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 1rem;
+  grid-template-columns: 1fr 1fr;         
+  gap: 1rem;                              
 }
 
 .project {
   border: 1px solid #e5e7eb;
-  border-radius: .5rem;
-  padding: .75rem;
+  border-radius: 0.5rem;
+  padding: 0.75rem;
   background: #fff;
-
 }
+
 .project img {
   width: 100%;
   height: auto;
-  border-radius: .4rem;
-  margin-top: .5rem;
+  border-radius: 0.4rem;
+  margin-top: 0.5rem;
 }
 
 footer .contact {
-  position: absolute;
+  position: absolute;                    
   right: 1rem;
   bottom: 1rem;
   text-align: right;
-}
-
-@media (max-width: 800px) {
-  .layout {
-    grid-template-columns: 1fr;
-    grid-template-areas:
-      "header"
-      "aside"
-      "main"
-      "footer";
-  }
-  aside { border-right: 0; border-bottom: 1px solid #ddd; }
-  footer .contact { position: static; text-align: left; margin-top: .5rem; }
 }
