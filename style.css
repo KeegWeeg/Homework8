@@ -181,11 +181,7 @@ thead th {
   opacity: 0.95;
 }
 
-.float-gallery::after {
-  content: "";
-  display: table;
-  clear: both;
-}
+
 
 .float-gallery img {
   float: left;
@@ -259,6 +255,7 @@ thead th {
     margin-right: 0;
   }
 }
+
 
 
 
