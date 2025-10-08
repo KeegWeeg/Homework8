@@ -9,31 +9,27 @@
 <body>
   <div class="layout">
 
-    <!-- Fixed header with flexbox -->
-    <header class="site-header">
-      <div class="header-inner">
+    <header class="header">
+      <div class="header-content">
         <h1>Keegan Lange</h1>
         <h2>Aspiring Software Developer</h2>
       </div>
     </header>
-
     <aside>
-      <!-- Flexbox nav: evenly spaced, centered; links already anchor to sections -->
       <nav class="nav">
-        <a class="nav__item" href="#summary">Summary</a>
-        <a class="nav__item" href="#education">Education</a>
-        <a class="nav__item" href="#experience">Experience</a>
-        <a class="nav__item" href="#skills">Skills</a>
-        <a class="nav__item" href="#projects">Projects</a>
-        <a class="nav__item" href="#contact">Contact</a>
+        <a class="nav-item" href="#summary">Summary</a>
+        <a class="nav-item" href="#education">Education</a>
+        <a class="nav-item" href="#experience">Experience</a>
+        <a class="nav-item" href="#skills">Skills</a>
+        <a class="nav-item" href="#projects">Projects</a>
+        <a class="nav-item" href="#contact">Contact</a>
 
         <div class="resume-wrap">
-          <a class="resume-btn" href="./assets/Resume.png" download>Download Resume</a>
+          <a class="resume-button" href="./assets/Resume.png" download>Download Resume</a>
         </div>
       </nav>
     </aside>
 
-    <!-- Main is now a flex container that wraps; skills then projects in sequence -->
     <main>
       <section id="summary" class="card">
         <h2>Summary</h2>
@@ -68,14 +64,13 @@
         </table>
       </section>
 
-      <!-- Skills: now a GRID; highlighted items can span -->
       <section id="skills" class="card">
         <h2>Programming Languages</h2>
         <ul class="skills-grid">
           <li class="skill">SQL</li>
           <li class="skill">Python</li>
           <li class="skill">Assembly (MIPS)</li>
-          <li class="skill skill--featured">Java</li>
+          <li class="skill featured-skill">Java</li>
           <li class="skill">JavaScript</li>
           <li class="skill">HTML</li>
           <li class="skill">CSS</li>
@@ -83,7 +78,6 @@
         </ul>
       </section>
 
-      <!-- Projects: grid using auto-fill/minmax; one featured spans -->
       <section id="projects" class="card">
         <h2>Projects</h2>
 
@@ -94,7 +88,7 @@
         </div>
 
         <div class="projects-grid">
-          <article class="project project--featured">
+          <article class="project featured-project">
             <h3>Polyrhythm Visualizer</h3>
             <p>JS/HTML/CSS program that plots concurrent rhythms on a circle to show sync points.</p>
             <img src="./images/Visualizer.png" alt="Polyrhythm Visualizer screenshot">
@@ -114,10 +108,8 @@
         </div>
       </section>
     </main>
-
-    <!-- Fixed footer with flexbox -->
-    <footer id="contact" class="site-footer">
-      <div class="footer-inner">
+    <footer id="contact" class="footer">
+      <div class="footer-content">
         <p>Phone: 602-909-5128</p>
         <div class="contact">
           <a href="mailto:ksl273@nau.edu">ksl273@nau.edu</a> •
@@ -130,8 +122,6 @@
   </div>
 </body>
 </html>
-
-
 
 
 
