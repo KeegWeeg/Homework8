@@ -1,24 +1,51 @@
+:root{
+  --header-h: 88px;   /* fixed header height */
+  --footer-h: 72px;   /* fixed footer height */
+}
+
+html { scroll-behavior: smooth; }
+
 .layout {
-  display: grid;                          
-  grid-template-columns: 240px 1fr;       
-  grid-template-rows: auto 1fr auto;      
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  grid-template-rows: auto 1fr auto;
   grid-template-areas:
     "header header"
     "aside  main"
     "footer footer";
-  min-height: 100vh;                       
+  min-height: 100vh;
   font-family: system-ui, Arial, sans-serif;
   color: #111;
+
+  /* room so fixed header/footer don’t overlap content */
+  padding-top: var(--header-h);
+  padding-bottom: calc(var(--footer-h) + 8px);
 }
 
-header { 
-  grid-area: header; 
-  padding: 1rem 1.25rem; 
-  border-bottom: 1px solid #ddd; 
-  position: sticky;            
+/* ========== FIXED HEADER (Flexbox) ========== */
+header.site-header {
+  grid-area: header;
+  position: fixed;
   top: 0;
-  background: #fff;
-  z-index: 5;
+  left: 0;
+  right: 0;
+  height: var(--header-h);
+  background: #ffffff;
+  border-bottom: 1px solid #ddd;
+  z-index: 1000;
+  display: flex;
+  align-items: center;        /* vertical centering */
+  justify-content: center;    /* center overall content */
+  flex-shrink: 0;             /* don’t shrink on resize */
+}
+
+.header-inner{
+  width: min(1200px, 100%);
+  padding: 0 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;  /* h1 on left, h2 on right */
+  gap: 1rem;
 }
 
 aside  { 
@@ -26,180 +53,163 @@ aside  {
   border-right: 1px solid #ddd; 
 }
 
+/* ========== FLEXBOX NAV (even spacing, centered) ========== */
 .nav {
-  display: flex;                
-  flex-direction: column;       
-  gap: 0.5rem;                  
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;     /* spread items evenly */
+  align-items: center;               /* center horizontally in the column */
+  gap: 0.5rem;
   padding: 1rem;
+  height: calc(100vh - var(--header-h) - var(--footer-h)); /* fill between fixed bars */
+  position: sticky;
+  top: var(--header-h);
 }
 
-.nav a {
-  padding: 0.5rem 0.6rem;
+.nav__item {
+  flex: 1 1 auto;                    /* each item can grow equally */
+  display: flex;
+  align-items: center;
+  justify-content: center;           /* text centered horizontally */
+  width: 100%;
+  padding: 0.55rem 0.75rem;
   border-radius: 0.5rem;
   text-decoration: none;
   color: #111;
 }
 
-.nav a:hover { 
-  background: #f1f5f9;          
-}
+.nav__item:hover { background: #f1f5f9; }
 
-.resume-wrap { 
-  position: relative; 
-  margin-top: 0.5rem; 
-}
-
+.resume-wrap { width: 100%; }
 .resume-btn {
-  position: absolute;           
-  right: 0;
-  top: 0;
+  display: block;
+  text-align: center;
   background: #0ea5e9;
   color: white;
-  padding: 0.45rem 0.7rem;
+  padding: 0.55rem 0.75rem;
   border-radius: 999px;
   font-weight: 600;
   transition: background-color 0.3s ease, border-radius 0.3s ease;
 }
+.resume-btn:hover { background:#0284c7; border-radius:12px; }
 
-.resume-btn:hover { 
-  background: #0284c7; 
-  border-radius: 12px;
-}
-
-main   { 
-  grid-area: main;   
-  padding: 1rem 1.25rem; 
-  display: grid;           
-  grid-template-columns: 1fr;
+/* ========== MAIN as FLEX CONTAINER (wraps, spacing) ========== */
+main {
+  grid-area: main;
+  padding: 1rem 1.25rem;
+  display: flex;                /* changed from grid -> flex */
+  flex-direction: column;       /* skills then projects one after another */
+  flex-wrap: wrap;              /* allow wrapping when narrow */
   gap: 1rem;
 }
 
-footer { 
-  grid-area: footer; 
-  padding: 1rem 1.25rem; 
-  border-top: 1px solid #ddd; 
-  position: relative;                    
+/* sections expand/contract proportionally */
+main > section.card {
+  flex: 1 1 520px;              /* grow and shrink as space changes */
+  padding: 1rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  background: #fff;
+
+  /* so anchored jumps account for fixed header */
+  scroll-margin-top: calc(var(--header-h) + 12px);
 }
 
-footer .contact {
-  position: absolute;        
-  right: 1rem;
-  bottom: 1rem;
-  text-align: right;
-}
+/* ========== TABLES ========== */
+table{ width:100%; border-collapse: collapse; }
+th, td { padding: 0.6rem 0.75rem; border-bottom: 1px solid #eee; text-align: left; }
+thead th { background: #f7f7f8; font-weight: 600; }
 
-table { 
-  width: 100%; 
-  border-collapse: collapse; 
-}
-
-th, td { 
-  padding: 0.6rem 0.75rem; 
-  border-bottom: 1px solid #eee; 
-  text-align: left; 
-}
-
-thead th { 
-  background: #f7f7f8; 
-  font-weight: 600; 
-}
-
-#education, 
-#experience {
-  margin-top: 1rem;
-}
-
-#education h2, 
-#experience h2, 
-#summary h2, 
-#skills h2, 
-#projects h2 {
-  margin: 0 0 0.6rem;
-  font-size: 1.4rem;
-}
-
-#summary p {
-  line-height: 1.7;
-  margin: 0.5rem 0 0;
-}
-
-.skills-list {
+/* ========== SKILLS: GRID with auto-fill/minmax ========== */
+.skills-grid{
   list-style: none;
   padding: 0;
-  margin: 0.5rem 0 0;
-  display: flex;              
-  flex-wrap: wrap;
-  gap: 0.5rem 0.6rem; 
-  align-items: center;
+  margin: 0.75rem 0 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 0.6rem;
 }
-
-.skills-list li {
+.skill{
   border: 1px solid #e5e7eb;
-  padding: 0.45rem 0.65rem;
-  border-radius: 999px;
+  padding: 0.6rem 0.75rem;
+  border-radius: 0.6rem;
   background: #f8fafc;
-  transition: transform 0.3s ease, background-color 0.3s ease;
+  text-align: center;
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+.skill:hover{ transform: translateY(-2px); background: #eef6ff; }
+
+/* highlight a key skill by spanning columns */
+.skill--featured{
+  grid-column: span 2;
+  grid-row: span 1;
+  font-weight: 700;
 }
 
-.skills-list li:hover {
-  transform: scale(1.05);
-  background-color: #e8f4ff;
+/* ========== PROJECTS: GRID with spanning cards ========== */
+.projects-grid{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1rem;
+  margin-top: 0.75rem;
 }
-
-#projects .grid {
-  display: grid;                          
-  grid-template-columns: 1fr 1fr;         
-  gap: 1rem;                              
-}
-
-.project {
+.project{
   border: 1px solid #e5e7eb;
   border-radius: 0.5rem;
   padding: 0.75rem;
   background: #fff;
 }
-
-.project img {
+.project img{
   width: 100%;
   height: auto;
   border-radius: 0.4rem;
   margin-top: 0.5rem;
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
+.project img:hover{ transform: scale(1.03); opacity: 0.95; }
 
-.project img:hover {
-  transform: scale(1.03);
-  opacity: 0.95;
-}
-
-.float-gallery::after {
-  content: "";
-  display: table;
-  clear: both;
-}
-
-.float-gallery img {
-  float: left;
-  width: 32%;
-  margin-right: 2%;
-  margin-bottom: 0.75rem;
-  border-radius: 0.25rem;
-  transition: opacity 0.3s ease, transform 0.3s ease;
-}
-
-.float-gallery img:last-child {
-  margin-right: 0;
-}
-
-.float-gallery img:hover {
-  opacity: 0.9;
-  transform: scale(1.02);
-}
-
-@media (max-width: 1024px) {
-  .layout {
-    grid-template-columns: 200px 1fr;
+/* make a featured project span multiple columns on wider screens */
+@media (min-width: 900px){
+  .project--featured{
+    grid-column: span 2;
   }
+}
+
+/* keep your float gallery (unchanged) */
+.float-gallery::after { content: ""; display: table; clear: both; }
+.float-gallery img {
+  float: left; width: 32%; margin-right: 2%; margin-bottom: 0.75rem;
+  border-radius: 0.25rem; transition: opacity 0.3s ease, transform 0.3s ease;
+}
+.float-gallery img:last-child { margin-right: 0; }
+.float-gallery img:hover { opacity: 0.9; transform: scale(1.02); }
+
+/* ========== FIXED FOOTER (Flexbox) ========== */
+footer.site-footer{
+  grid-area: footer;
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  height: var(--footer-h);
+  background: #ffffff;
+  border-top: 1px solid #ddd;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;  /* don’t shrink */
+}
+.footer-inner{
+  width: min(1200px, 100%);
+  padding: 0 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+footer .contact{ text-align: right; }
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 1024px) {
+  .layout { grid-template-columns: 200px 1fr; }
 }
 
 @media (max-width: 768px) {
@@ -213,43 +223,31 @@ thead th {
       "footer";
   }
 
-  aside {
-    border-right: none;
-    border-bottom: 1px solid #ddd;
-  }
+  aside { border-right: none; border-bottom: 1px solid #ddd; }
 
+  /* nav becomes horizontal scroller on small screens but keeps even spacing */
   .nav {
     flex-direction: row;
+    height: auto;
     overflow-x: auto;
-    gap: 0.5rem;
+    justify-content: space-evenly;
   }
+  .nav__item{ flex: 0 0 auto; white-space: nowrap; }
 
-  .float-gallery img {
-    width: 48%;
-    margin-right: 4%;
-  }
-  .float-gallery img:nth-child(2n) {
-    margin-right: 0;
-  }
+  .float-gallery img { width: 48%; margin-right: 4%; }
+  .float-gallery img:nth-child(2n){ margin-right: 0; }
 }
 
 @media (max-width: 480px) {
-  header h1 { font-size: 1.5rem; }
-  header h2 { font-size: 1rem; color: #374151; }
+  .header-inner h1 { font-size: 1.25rem; }
+  .header-inner h2 { font-size: 0.95rem; color: #374151; }
 
-  #projects .grid {
-    grid-template-columns: 1fr;
-  }
+  .projects-grid { grid-template-columns: 1fr; }
 
-  .nav a {
-    white-space: nowrap;
-  }
-
-  .float-gallery img {
-    width: 100%;
-    margin-right: 0;
-  }
+  .float-gallery img { width: 100%; margin-right: 0; }
 }
+
+
 
 
 
