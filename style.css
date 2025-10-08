@@ -1,133 +1,269 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8"> 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
-  <title>About Me - Keegan Lange</title>
-  <link rel="stylesheet" href="./style.css">
-</head>
-<body>
-  <div class="layout">
+:root {
+  --header-height: 88px;
+  --footer-height: 72px;
+}
 
-    <!-- Fixed header with Flexbox -->
-    <header class="header">
-      <div class="header-content">
-        <h1>Keegan Lange</h1>
-        <h2>Aspiring Software Developer</h2>
-      </div>
-    </header>
+html {
+  scroll-behavior: smooth;
+}
 
-    <!-- Sidebar Navigation using Flexbox -->
-    <aside>
-      <nav class="nav">
-        <a class="nav-item" href="#summary">Summary</a>
-        <a class="nav-item" href="#education">Education</a>
-        <a class="nav-item" href="#experience">Experience</a>
-        <a class="nav-item" href="#skills">Skills</a>
-        <a class="nav-item" href="#projects">Projects</a>
-        <a class="nav-item" href="#contact">Contact</a>
+.layout {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas:
+    "header header"
+    "aside  main"
+    "footer footer";
+  min-height: 100vh;
+  font-family: system-ui, Arial, sans-serif;
+  color: #111;
+  padding-top: var(--header-height);
+  padding-bottom: var(--footer-height);
+}
 
-        <div class="resume-wrap">
-          <a class="resume-button" href="./assets/Resume.png" download>Download Resume</a>
-        </div>
-      </nav>
-    </aside>
+.header {
+  grid-area: header;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--header-height);
+  background: #fff;
+  border-bottom: 1px solid #ddd;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
 
-    <!-- Main content with Flexbox and Grid -->
-    <main>
-      <section id="summary" class="card">
-        <h2>Summary</h2>
-        <p>
-          Hello! My name is Keegan Lange. I am a second year student at NAU, majoring in Computer Science.
-          I’ve been programming since high school. Interests: music (piano), creativity, and data analytics.
-          For this course, I’m committed to using AI as a learning tool, not a crutch.
-        </p>
-      </section>
+.header-content {
+  width: min(1200px, 100%);
+  padding: 0 1.25rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 
-      <section id="education" class="card">
-        <h2>Education</h2>
-        <table>
-          <thead>
-            <tr><th>Institution</th><th>Degree/Program</th><th>Duration</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>Northern Arizona University</td><td>B.S. Computer Science</td><td>Aug 2024 – May 2028</td></tr>
-          </tbody>
-        </table>
-      </section>
+aside {
+  grid-area: aside;
+  border-right: 1px solid #ddd;
+}
 
-      <section id="experience" class="card">
-        <h2>Experience</h2>
-        <table>
-          <thead>
-            <tr><th>Company</th><th>Role</th><th>Duration</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>GCON</td><td>Data Intern/IT</td><td>May 2024 – Present</td></tr>
-          </tbody>
-        </table>
-      </section>
+.nav {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  height: calc(100vh - var(--header-height) - var(--footer-height));
+  padding: 1rem;
+  position: sticky;
+  top: var(--header-height);
+}
 
-      <section id="skills" class="card">
-        <h2>Programming Languages</h2>
-        <ul class="skills-grid">
-          <li class="skill">SQL</li>
-          <li class="skill">Python</li>
-          <li class="skill">Assembly (MIPS)</li>
-          <li class="skill featured-skill">Java</li>
-          <li class="skill">JavaScript</li>
-          <li class="skill">HTML</li>
-          <li class="skill">CSS</li>
-          <li class="skill">C</li>
-        </ul>
-      </section>
+.nav-item {
+  flex: 1 1 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 0.6rem;
+  text-decoration: none;
+  color: #111;
+  border-radius: 0.5rem;
+}
 
-      <section id="projects" class="card">
-        <h2>Projects</h2>
+.nav-item:hover {
+  background: #f1f5f9;
+}
 
-        <div class="float-gallery">
-          <img src="./images/Visualizer.png" alt="Visualizer">
-          <img src="./images/2D.png" alt="2D Game">
-          <img src="./images/GantChart.png" alt="Gantt Chart">
-        </div>
+.resume-button {
+  display: block;
+  background: #0ea5e9;
+  color: white;
+  padding: 0.55rem 0.75rem;
+  border-radius: 999px;
+  font-weight: 600;
+  text-align: center;
+  transition: background-color 0.3s ease;
+}
 
-        <div class="projects-grid">
-          <article class="project featured-project">
-            <h3>Polyrhythm Visualizer</h3>
-            <p>JS/HTML/CSS program that plots concurrent rhythms on a circle to show sync points.</p>
-            <img src="./images/Visualizer.png" alt="Polyrhythm Visualizer screenshot">
-          </article>
+.resume-button:hover {
+  background: #0284c7;
+}
 
-          <article class="project">
-            <h3>2D Web Game</h3>
-            <p>Small game with movement and point collection made with HTML/CSS/JS.</p>
-            <img src="./images/2D.png" alt="2D Web Game screenshot">
-          </article>
+main {
+  grid-area: main;
+  padding: 1rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
 
-          <article class="project">
-            <h3>Gantt Chart</h3>
-            <p>Chart that plotted potential contracts and timelines for a construction company.</p>
-            <img src="./images/GantChart.png" alt="Gantt chart screenshot">
-          </article>
-        </div>
-      </section>
-    </main>
+.card {
+  flex: 1 1 520px;
+  padding: 1rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  background: #fff;
+  scroll-margin-top: calc(var(--header-height) + 12px);
+}
 
-    <!-- Fixed Footer -->
-    <footer id="contact" class="footer">
-      <div class="footer-content">
-        <p>Phone: 602-909-5128</p>
-        <div class="contact">
-          <a href="mailto:ksl273@nau.edu">ksl273@nau.edu</a> •
-          <a href="mailto:keegan4271@gmail.com">keegan4271@gmail.com</a> •
-          <a href="https://github.com/KeegWeeg" target="_blank" rel="noopener">github.com/KeegWeeg</a>
-        </div>
-      </div>
-    </footer>
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 0.6rem;
+  list-style: none;
+  margin: 0.75rem 0 0;
+  padding: 0;
+}
 
-  </div>
-</body>
-</html>
+.skill {
+  border: 1px solid #e5e7eb;
+  background: #f8fafc;
+  padding: 0.6rem;
+  border-radius: 0.6rem;
+  text-align: center;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.skill:hover {
+  background: #eef6ff;
+  transform: scale(1.05);
+}
+
+.featured-skill {
+  grid-column: span 2;
+  font-weight: 700;
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1rem;
+  margin-top: 0.75rem;
+}
+
+.project {
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  padding: 0.75rem;
+  background: #fff;
+}
+
+.project img {
+  width: 100%;
+  border-radius: 0.4rem;
+  margin-top: 0.5rem;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.project img:hover {
+  transform: scale(1.03);
+  opacity: 0.95;
+}
+
+.featured-project {
+  grid-column: span 2;
+}
+
+.float-gallery::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.float-gallery img {
+  float: left;
+  width: 32%;
+  margin-right: 2%;
+  margin-bottom: 0.75rem;
+  border-radius: 0.25rem;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.float-gallery img:last-child {
+  margin-right: 0;
+}
+
+.footer {
+  grid-area: footer;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: var(--footer-height);
+  background: #fff;
+  border-top: 1px solid #ddd;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.footer-content {
+  width: min(1200px, 100%);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .layout {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto 1fr auto;
+    grid-template-areas:
+      "header"
+      "aside"
+      "main"
+      "footer";
+  }
+
+  aside {
+    border-right: none;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .nav {
+    flex-direction: row;
+    height: auto;
+    overflow-x: auto;
+    justify-content: space-evenly;
+  }
+
+  .nav-item {
+    flex: 0 0 auto;
+    white-space: nowrap;
+  }
+
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .float-gallery img {
+    width: 48%;
+    margin-right: 4%;
+  }
+
+  .float-gallery img:nth-child(2n) {
+    margin-right: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .projects-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .float-gallery img {
+    width: 100%;
+    margin-right: 0;
+  }
+}
+
+
 
 
 
