@@ -1,252 +1,133 @@
-:root{
-  --header-h: 88px;   /* fixed header height */
-  --footer-h: 72px;   /* fixed footer height */
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+  <title>About Me - Keegan Lange</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <div class="layout">
 
-html { scroll-behavior: smooth; }
+    <!-- Fixed header with Flexbox -->
+    <header class="header">
+      <div class="header-content">
+        <h1>Keegan Lange</h1>
+        <h2>Aspiring Software Developer</h2>
+      </div>
+    </header>
 
-.layout {
-  display: grid;
-  grid-template-columns: 240px 1fr;
-  grid-template-rows: auto 1fr auto;
-  grid-template-areas:
-    "header header"
-    "aside  main"
-    "footer footer";
-  min-height: 100vh;
-  font-family: system-ui, Arial, sans-serif;
-  color: #111;
+    <!-- Sidebar Navigation using Flexbox -->
+    <aside>
+      <nav class="nav">
+        <a class="nav-item" href="#summary">Summary</a>
+        <a class="nav-item" href="#education">Education</a>
+        <a class="nav-item" href="#experience">Experience</a>
+        <a class="nav-item" href="#skills">Skills</a>
+        <a class="nav-item" href="#projects">Projects</a>
+        <a class="nav-item" href="#contact">Contact</a>
 
-  /* room so fixed header/footer don’t overlap content */
-  padding-top: var(--header-h);
-  padding-bottom: calc(var(--footer-h) + 8px);
-}
+        <div class="resume-wrap">
+          <a class="resume-button" href="./assets/Resume.png" download>Download Resume</a>
+        </div>
+      </nav>
+    </aside>
 
-/* ========== FIXED HEADER (Flexbox) ========== */
-header.site-header {
-  grid-area: header;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: var(--header-h);
-  background: #ffffff;
-  border-bottom: 1px solid #ddd;
-  z-index: 1000;
-  display: flex;
-  align-items: center;        /* vertical centering */
-  justify-content: center;    /* center overall content */
-  flex-shrink: 0;             /* don’t shrink on resize */
-}
+    <!-- Main content with Flexbox and Grid -->
+    <main>
+      <section id="summary" class="card">
+        <h2>Summary</h2>
+        <p>
+          Hello! My name is Keegan Lange. I am a second year student at NAU, majoring in Computer Science.
+          I’ve been programming since high school. Interests: music (piano), creativity, and data analytics.
+          For this course, I’m committed to using AI as a learning tool, not a crutch.
+        </p>
+      </section>
 
-.header-inner{
-  width: min(1200px, 100%);
-  padding: 0 1.25rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;  /* h1 on left, h2 on right */
-  gap: 1rem;
-}
+      <section id="education" class="card">
+        <h2>Education</h2>
+        <table>
+          <thead>
+            <tr><th>Institution</th><th>Degree/Program</th><th>Duration</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Northern Arizona University</td><td>B.S. Computer Science</td><td>Aug 2024 – May 2028</td></tr>
+          </tbody>
+        </table>
+      </section>
 
-aside  { 
-  grid-area: aside;  
-  border-right: 1px solid #ddd; 
-}
+      <section id="experience" class="card">
+        <h2>Experience</h2>
+        <table>
+          <thead>
+            <tr><th>Company</th><th>Role</th><th>Duration</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>GCON</td><td>Data Intern/IT</td><td>May 2024 – Present</td></tr>
+          </tbody>
+        </table>
+      </section>
 
-/* ========== FLEXBOX NAV (even spacing, centered) ========== */
-.nav {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;     /* spread items evenly */
-  align-items: center;               /* center horizontally in the column */
-  gap: 0.5rem;
-  padding: 1rem;
-  height: calc(100vh - var(--header-h) - var(--footer-h)); /* fill between fixed bars */
-  position: sticky;
-  top: var(--header-h);
-}
+      <section id="skills" class="card">
+        <h2>Programming Languages</h2>
+        <ul class="skills-grid">
+          <li class="skill">SQL</li>
+          <li class="skill">Python</li>
+          <li class="skill">Assembly (MIPS)</li>
+          <li class="skill featured-skill">Java</li>
+          <li class="skill">JavaScript</li>
+          <li class="skill">HTML</li>
+          <li class="skill">CSS</li>
+          <li class="skill">C</li>
+        </ul>
+      </section>
 
-.nav__item {
-  flex: 1 1 auto;                    /* each item can grow equally */
-  display: flex;
-  align-items: center;
-  justify-content: center;           /* text centered horizontally */
-  width: 100%;
-  padding: 0.55rem 0.75rem;
-  border-radius: 0.5rem;
-  text-decoration: none;
-  color: #111;
-}
+      <section id="projects" class="card">
+        <h2>Projects</h2>
 
-.nav__item:hover { background: #f1f5f9; }
+        <div class="float-gallery">
+          <img src="./images/Visualizer.png" alt="Visualizer">
+          <img src="./images/2D.png" alt="2D Game">
+          <img src="./images/GantChart.png" alt="Gantt Chart">
+        </div>
 
-.resume-wrap { width: 100%; }
-.resume-btn {
-  display: block;
-  text-align: center;
-  background: #0ea5e9;
-  color: white;
-  padding: 0.55rem 0.75rem;
-  border-radius: 999px;
-  font-weight: 600;
-  transition: background-color 0.3s ease, border-radius 0.3s ease;
-}
-.resume-btn:hover { background:#0284c7; border-radius:12px; }
+        <div class="projects-grid">
+          <article class="project featured-project">
+            <h3>Polyrhythm Visualizer</h3>
+            <p>JS/HTML/CSS program that plots concurrent rhythms on a circle to show sync points.</p>
+            <img src="./images/Visualizer.png" alt="Polyrhythm Visualizer screenshot">
+          </article>
 
-/* ========== MAIN as FLEX CONTAINER (wraps, spacing) ========== */
-main {
-  grid-area: main;
-  padding: 1rem 1.25rem;
-  display: flex;                /* changed from grid -> flex */
-  flex-direction: column;       /* skills then projects one after another */
-  flex-wrap: wrap;              /* allow wrapping when narrow */
-  gap: 1rem;
-}
+          <article class="project">
+            <h3>2D Web Game</h3>
+            <p>Small game with movement and point collection made with HTML/CSS/JS.</p>
+            <img src="./images/2D.png" alt="2D Web Game screenshot">
+          </article>
 
-/* sections expand/contract proportionally */
-main > section.card {
-  flex: 1 1 520px;              /* grow and shrink as space changes */
-  padding: 1rem;
-  border: 1px solid #e5e7eb;
-  border-radius: 0.5rem;
-  background: #fff;
+          <article class="project">
+            <h3>Gantt Chart</h3>
+            <p>Chart that plotted potential contracts and timelines for a construction company.</p>
+            <img src="./images/GantChart.png" alt="Gantt chart screenshot">
+          </article>
+        </div>
+      </section>
+    </main>
 
-  /* so anchored jumps account for fixed header */
-  scroll-margin-top: calc(var(--header-h) + 12px);
-}
+    <!-- Fixed Footer -->
+    <footer id="contact" class="footer">
+      <div class="footer-content">
+        <p>Phone: 602-909-5128</p>
+        <div class="contact">
+          <a href="mailto:ksl273@nau.edu">ksl273@nau.edu</a> •
+          <a href="mailto:keegan4271@gmail.com">keegan4271@gmail.com</a> •
+          <a href="https://github.com/KeegWeeg" target="_blank" rel="noopener">github.com/KeegWeeg</a>
+        </div>
+      </div>
+    </footer>
 
-/* ========== TABLES ========== */
-table{ width:100%; border-collapse: collapse; }
-th, td { padding: 0.6rem 0.75rem; border-bottom: 1px solid #eee; text-align: left; }
-thead th { background: #f7f7f8; font-weight: 600; }
-
-/* ========== SKILLS: GRID with auto-fill/minmax ========== */
-.skills-grid{
-  list-style: none;
-  padding: 0;
-  margin: 0.75rem 0 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-  gap: 0.6rem;
-}
-.skill{
-  border: 1px solid #e5e7eb;
-  padding: 0.6rem 0.75rem;
-  border-radius: 0.6rem;
-  background: #f8fafc;
-  text-align: center;
-  transition: transform 0.2s ease, background-color 0.2s ease;
-}
-.skill:hover{ transform: translateY(-2px); background: #eef6ff; }
-
-/* highlight a key skill by spanning columns */
-.skill--featured{
-  grid-column: span 2;
-  grid-row: span 1;
-  font-weight: 700;
-}
-
-/* ========== PROJECTS: GRID with spanning cards ========== */
-.projects-grid{
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-  gap: 1rem;
-  margin-top: 0.75rem;
-}
-.project{
-  border: 1px solid #e5e7eb;
-  border-radius: 0.5rem;
-  padding: 0.75rem;
-  background: #fff;
-}
-.project img{
-  width: 100%;
-  height: auto;
-  border-radius: 0.4rem;
-  margin-top: 0.5rem;
-  transition: transform 0.3s ease, opacity 0.3s ease;
-}
-.project img:hover{ transform: scale(1.03); opacity: 0.95; }
-
-/* make a featured project span multiple columns on wider screens */
-@media (min-width: 900px){
-  .project--featured{
-    grid-column: span 2;
-  }
-}
-
-/* keep your float gallery (unchanged) */
-.float-gallery::after { content: ""; display: table; clear: both; }
-.float-gallery img {
-  float: left; width: 32%; margin-right: 2%; margin-bottom: 0.75rem;
-  border-radius: 0.25rem; transition: opacity 0.3s ease, transform 0.3s ease;
-}
-.float-gallery img:last-child { margin-right: 0; }
-.float-gallery img:hover { opacity: 0.9; transform: scale(1.02); }
-
-/* ========== FIXED FOOTER (Flexbox) ========== */
-footer.site-footer{
-  grid-area: footer;
-  position: fixed;
-  left: 0; right: 0; bottom: 0;
-  height: var(--footer-h);
-  background: #ffffff;
-  border-top: 1px solid #ddd;
-  z-index: 1000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;  /* don’t shrink */
-}
-.footer-inner{
-  width: min(1200px, 100%);
-  padding: 0 1.25rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-footer .contact{ text-align: right; }
-
-/* ========== RESPONSIVE ========== */
-@media (max-width: 1024px) {
-  .layout { grid-template-columns: 200px 1fr; }
-}
-
-@media (max-width: 768px) {
-  .layout {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto auto 1fr auto;
-    grid-template-areas:
-      "header"
-      "aside"
-      "main"
-      "footer";
-  }
-
-  aside { border-right: none; border-bottom: 1px solid #ddd; }
-
-  /* nav becomes horizontal scroller on small screens but keeps even spacing */
-  .nav {
-    flex-direction: row;
-    height: auto;
-    overflow-x: auto;
-    justify-content: space-evenly;
-  }
-  .nav__item{ flex: 0 0 auto; white-space: nowrap; }
-
-  .float-gallery img { width: 48%; margin-right: 4%; }
-  .float-gallery img:nth-child(2n){ margin-right: 0; }
-}
-
-@media (max-width: 480px) {
-  .header-inner h1 { font-size: 1.25rem; }
-  .header-inner h2 { font-size: 0.95rem; color: #374151; }
-
-  .projects-grid { grid-template-columns: 1fr; }
-
-  .float-gallery img { width: 100%; margin-right: 0; }
-}
-
+  </div>
+</body>
+</html>
 
 
 
