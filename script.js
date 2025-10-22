@@ -1,7 +1,7 @@
 function addSkill() {
   const input = document.getElementById('skillInput');
   const list = document.getElementById('skillList');
-  const value = (input.value || '').trim();
+  const value = (input?.value || '').trim();
   if (!value) return;
 
   const li = document.createElement('li');
@@ -18,30 +18,40 @@ const projectTitles = [
   'Weather App',
   'Blog Prototype'
 ];
-
 const projectDescriptions = [
   'Reorganize sections and improve accessibility.',
   'Fetch and display current weather by city search.',
   'Lightweight blog with basic CRUD.'
 ];
-
 const projectDeadlines = [
-  '2026-01-15', 
+  '2026-01-15',
   '2024-12-01',
-  '2025-11-30' 
+  '2025-11-30'
 ];
 
 function renderProjects() {
   const wrap = document.getElementById('projectsDynamic');
-  wrap.innerHTML = '';
+  if (!wrap) return;
 
-  const today = new Date();
+  wrap.innerHTML = '';
+  const now = new Date();
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 
   for (let i = 0; i < projectTitles.length; i++) {
     const deadlineStr = projectDeadlines[i];
     const deadlineDate = new Date(deadlineStr);
-    // comparator usage
-    const status = deadlineDate > today ? 'Ongoing' : 'Completed';
+    const deadlineDay = new Date(
+      deadlineDate.getFullYear(),
+      deadlineDate.getMonth(),
+      deadlineDate.getDate()
+    );
+
+    let status = 'Completed';
+    if (deadlineDay.getTime() === today.getTime()) {
+      status = 'Due Today';
+    } else if (deadlineDay > today) {
+      status = 'Ongoing';
+    }
 
     const card = document.createElement('div');
     card.className = 'proj';
@@ -63,7 +73,6 @@ function initDownloadCounter() {
   link.addEventListener('click', () => {
     downloadCount += 1;
     counter.textContent = String(downloadCount);
-    // no preventDefault: still downloads via href + download attribute
   });
 }
 
@@ -77,9 +86,9 @@ const education = [
 
 function createTable(headers, rows) {
   const table = document.createElement('table');
+
   const thead = document.createElement('thead');
   const trHead = document.createElement('tr');
-
   headers.forEach(h => {
     const th = document.createElement('th');
     th.textContent = h;
@@ -106,10 +115,8 @@ function createTable(headers, rows) {
 function renderExperience() {
   const target = document.getElementById('experienceTable');
   if (!target) return;
-
   const headers = ['Company', 'Role', 'Start', 'End'];
   const rows = experiences.map(e => [e.company, e.role, e.start, e.end]);
-
   target.innerHTML = '';
   target.appendChild(createTable(headers, rows));
 }
@@ -117,10 +124,8 @@ function renderExperience() {
 function renderEducation() {
   const target = document.getElementById('educationTable');
   if (!target) return;
-
   const headers = ['Institution', 'Degree/Program', 'Start', 'End'];
   const rows = education.map(ed => [ed.school, ed.degree, ed.start, ed.end]);
-
   target.innerHTML = '';
   target.appendChild(createTable(headers, rows));
 }
@@ -130,5 +135,28 @@ function toggleTheme() {
 }
 
 function applyStyles() {
-  const fontSize = document.getElementById('fontSizeInput').value;
-  const bgColor = document.getElementById('bgColorInput').value;
+  const fontSizeEl = document.getElementById('fontSizeInput');
+  const bgColorEl = document.getElementById('bgColorInput');
+  if (fontSizeEl?.value) document.body.style.fontSize = `${fontSizeEl.value}px`;
+  if (bgColorEl?.value) document.body.style.backgroundColor = bgColorEl.value;
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  renderProjects();
+  renderExperience();
+  renderEducation();
+  initDownloadCounter();
+
+  const addBtn = document.getElementById('addSkillBtn');
+  addBtn?.addEventListener('click', addSkill);
+
+  const skillInput = document.getElementById('skillInput');
+  skillInput?.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') addSkill();
+  });
+
+  document.getElementById('themeToggle')?.addEventListener('click', toggleTheme);
+  document.getElementById('applyStyles')?.addEventListener('click', applyStyles);
+});
+
+
