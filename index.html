@@ -11,10 +11,26 @@
 
     <header class="header">
       <div class="header-content">
-        <h1>Keegan Lange</h1>
-        <h2>Aspiring Software Developer</h2>
+        <div>
+          <h1>Keegan Lange</h1>
+          <h2>Aspiring Software Developer</h2>
+        </div>
+        <div class="header-actions">
+          <!-- Bonus: theme toggle + simple style tweaks -->
+          <button id="themeToggle" type="button">Toggle Theme</button>
+          <label class="style-inline">
+            Font size
+            <input id="fontSizeInput" type="number" min="12" max="22" step="1" value="16">
+          </label>
+          <label class="style-inline">
+            Page color
+            <input id="bgColorInput" type="color" value="#ffffff">
+          </label>
+          <button id="applyStyles" type="button">Apply</button>
+        </div>
       </div>
     </header>
+
     <aside>
       <nav class="nav">
         <a class="nav-item" href="#summary">Summary</a>
@@ -25,7 +41,9 @@
         <a class="nav-item" href="#contact">Contact</a>
 
         <div class="resume-wrap">
-          <a class="resume-button" href="./assets/Resume.png" download>Download Resume</a>
+          <!-- Step 4: download counter (id used by JS) -->
+          <a id="resumeDownload" class="resume-button" href="./assets/Resume.png" download>Download Resume</a>
+          <p class="download-counter">Downloads: <span id="downloadCount">0</span></p>
         </div>
       </nav>
     </aside>
@@ -42,31 +60,27 @@
 
       <section id="education" class="card">
         <h2>Education</h2>
-        <table>
-          <thead>
-            <tr><th>Institution</th><th>Degree/Program</th><th>Duration</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>Northern Arizona University</td><td>B.S. Computer Science</td><td>Aug 2024 – May 2028</td></tr>
-          </tbody>
-        </table>
+        <!-- Step 5: JS will dynamically create this table -->
+        <div id="educationTable"></div>
       </section>
 
       <section id="experience" class="card">
         <h2>Experience</h2>
-        <table>
-          <thead>
-            <tr><th>Company</th><th>Role</th><th>Duration</th></tr>
-          </thead>
-          <tbody>
-            <tr><td>GCON</td><td>Data Intern/IT</td><td>May 2024 – Present</td></tr>
-          </tbody>
-        </table>
+        <!-- Step 5: JS will dynamically create this table -->
+        <div id="experienceTable"></div>
       </section>
 
       <section id="skills" class="card">
         <h2>Programming Languages</h2>
-        <ul class="skills-grid">
+
+        <!-- Step 1: input + button to add a skill -->
+        <div class="skill-input">
+          <input id="skillInput" type="text" placeholder="Enter a skill">
+          <button id="addSkillBtn" type="button">Add Skill</button>
+        </div>
+
+        <!-- Step 1: existing list becomes the target list (id used by JS) -->
+        <ul id="skillList" class="skills-grid">
           <li class="skill">SQL</li>
           <li class="skill">Python</li>
           <li class="skill">Assembly (MIPS)</li>
@@ -106,8 +120,13 @@
             <img src="./images/GantChart.png" alt="Gantt chart screenshot">
           </article>
         </div>
+
+        <!-- Step 2/3: JS will loop and render project listings + deadlines + status -->
+        <h3 class="mt-1">Project Listings (Dynamic)</h3>
+        <div id="projectsDynamic"></div>
       </section>
     </main>
+
     <footer id="contact" class="footer">
       <div class="footer-content">
         <p>Phone: 602-909-5128</p>
@@ -120,5 +139,8 @@
     </footer>
 
   </div>
+
+  <script src="./app.js"></script>
 </body>
 </html>
+
