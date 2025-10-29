@@ -1,191 +1,204 @@
-document.addEventListener("DOMContentLoaded", function () {
-  function $(sel, root) { return (root || document).querySelector(sel); }
-  function $all(sel, root) { return Array.from((root || document).querySelectorAll(sel)); }
+document.addEventListener("DOMContentLoaded", init);
 
-  const skillListEl = $("#skillList");
-  const addSkillBtn = $("#addSkillBtn");
-  const skillInput = $("#skillInput");
-  const themeToggle = $("#themeToggle");
-  const fontSizeInput = $("#fontSizeInput");
-  const bgColorInput = $("#bgColorInput");
-  const applyStyles = $("#applyStyles");
-  const resumeDownload = $("#resumeDownload");
-  const downloadCountEl = $("#downloadCount");
-  const projectsDynamic = $("#projectsDynamic");
-  const projectsSection = $("#projects");
-  const educationMount = $("#educationTable");
-  const experienceMount = $("#experienceTable");
+function init() {
+  // grab elements
+  var skillListEl = document.getElementById("skillList");
+  var addSkillBtn = document.getElementById("addSkillBtn");
+  var skillInput = document.getElementById("skillInput");
+  var themeToggle = document.getElementById("themeToggle");
+  var fontSizeInput = document.getElementById("fontSizeInput");
+  var bgColorInput = document.getElementById("bgColorInput");
+  var applyStylesBtn = document.getElementById("applyStyles");
+  var resumeDownload = document.getElementById("resumeDownload");
+  var downloadCountEl = document.getElementById("downloadCount");
+  var projectsDynamic = document.getElementById("projectsDynamic");
+  var projectsSection = document.getElementById("projects");
+  var educationMount = document.getElementById("educationTable");
+  var experienceMount = document.getElementById("experienceTable");
 
-  const skills = ["SQL", "Python", "Assembly (MIPS)", "Java", "JavaScript", "HTML", "CSS", "C"];
-  function renderSkills() {
-    if (!skillListEl) return;
-    skillListEl.innerHTML = "";
-    skills.forEach((s, i) => {
-      const li = document.createElement("li");
-      li.className = "skill";
-      li.textContent = s;
-      const del = document.createElement("button");
-      del.type = "button";
-      del.textContent = "×";
-      del.style.marginLeft = "6px";
-      del.addEventListener("click", (e) => {
-        e.stopPropagation();
-        skills.splice(i, 1);
-        li.style.transition = "opacity 0.2s";
-        li.style.opacity = "0";
-        setTimeout(renderSkills, 200);
-      });
-      li.addEventListener("click", () => {
-        const nv = prompt("Edit skill:", s);
-        if (nv && !skills.includes(nv.trim())) {
-          skills[i] = nv.trim();
-          renderSkills();
-        }
-      });
-      li.appendChild(del);
-      li.style.opacity = "0";
-      skillListEl.appendChild(li);
-      requestAnimationFrame(() => { li.style.transition = "opacity 0.2s"; li.style.opacity = "1"; });
-    });
-  }
-
-  if (addSkillBtn && skillInput) {
-    addSkillBtn.addEventListener("click", () => {
-      const val = (skillInput.value || "").trim();
-      if (val && !skills.includes(val)) {
-        skills.push(val);
-        renderSkills();
-      }
-      skillInput.value = "";
-      skillInput.focus();
-    });
-    skillInput.addEventListener("keydown", (e) => {
-      if (e.key === "Enter") addSkillBtn.click();
-      if (e.key === "Escape") skillInput.value = "";
-    });
-  }
-
-  $all(".nav-item").forEach((link) => {
-    link.addEventListener("click", (e) => {
-      const href = link.getAttribute("href");
-      if (!href || !href.startsWith("#")) return;
-      const target = $(href);
-      if (!target) return;
-      e.preventDefault();
-      const y = target.getBoundingClientRect().top + window.pageYOffset - 80;
-      window.scrollTo({ top: y, behavior: "smooth" });
-    });
-  });
-
-  const projects = [
+  // state
+  var skills = ["SQL", "Python", "Assembly (MIPS)", "Java", "JavaScript", "HTML", "CSS", "C"];
+  var projects = [
     { title: "Project 1", description: "Did project 1 things", deadline: new Date("2026-01-15"), imageURL: "./images/Visualizer.png" },
     { title: "Project 2", description: "Dabbled in project 2 things", deadline: new Date("2024-12-01"), imageURL: "./images/2D.png" },
     { title: "Project 3", description: "Did project 3 things", deadline: new Date("2025-11-30"), imageURL: "./images/GantChart.png" }
   ];
+  var downloadCount = 0;
+
+  // renderers
+  function renderSkills() {
+    if (!skillListEl) return;
+    skillListEl.innerHTML = "";
+    for (var i = 0; i < skills.length; i++) {
+      (function(index) {
+        var li = document.createElement("li");
+        li.className = "skill";
+        li.textContent = skills[index];
+
+        var del = document.createElement("button");
+        del.type = "button";
+        del.textContent = "x";
+        del.style.marginLeft = "6px";
+        del.addEventListener("click", function onDeleteClick(e) {
+          e.stopPropagation();
+          skills.splice(index, 1);
+          renderSkills();
+        });
+
+        li.addEventListener("click", function onSkillClick() {
+          var nv = prompt("Edit skill:", skills[index]);
+          if (nv) {
+            nv = nv.trim();
+            if (nv && skills.indexOf(nv) === -1) {
+              skills[index] = nv;
+              renderSkills();
+            }
+          }
+        });
+
+        li.appendChild(del);
+        skillListEl.appendChild(li);
+      })(i);
+    }
+  }
 
   function renderProjects() {
     if (!projectsDynamic) return;
     projectsDynamic.innerHTML = "";
-    projects.forEach((p) => {
-      const card = document.createElement("div");
+    for (var i = 0; i < projects.length; i++) {
+      var p = projects[i];
+      var card = document.createElement("div");
       card.className = "proj";
-      card.innerHTML = `
-        <h4>${p.title}</h4>
-        <p>${p.description}</p>
-        <p>Deadline: ${p.deadline.toLocaleDateString()}</p>
-        <img src="${p.imageURL}" alt="${p.title}" style="width:100%;height:auto;">
-      `;
-      card.style.opacity = "0";
+      card.innerHTML =
+        "<h4>" + p.title + "</h4>" +
+        "<p>" + p.description + "</p>" +
+        "<p>Deadline: " + p.deadline.toLocaleDateString() + "</p>" +
+        '<img src="' + p.imageURL + '" alt="' + p.title + '" style="width:100%;height:auto;">';
       projectsDynamic.appendChild(card);
-      requestAnimationFrame(() => { card.style.transition = "opacity 0.3s"; card.style.opacity = "1"; });
-    });
-  }
-
-  if (projectsSection && !projectsSection.querySelector(".sort-deadline")) {
-    const btn = document.createElement("button");
-    btn.className = "sort-deadline";
-    btn.type = "button";
-    btn.textContent = "Sort by Deadline";
-    btn.addEventListener("click", () => {
-      projects.sort((a, b) => a.deadline - b.deadline);
-      renderProjects();
-    });
-    projectsSection.prepend(btn);
-  }
-
-  if (themeToggle) {
-    themeToggle.addEventListener("click", () => {
-      document.body.classList.toggle("dark");
-      localStorage.setItem("prefersDark", document.body.classList.contains("dark") ? "1" : "0");
-    });
-    if (localStorage.getItem("prefersDark") === "1") {
-      document.body.classList.add("dark");
     }
   }
 
-  if (applyStyles && fontSizeInput && bgColorInput) {
-    applyStyles.addEventListener("click", () => {
-      const fontSize = parseInt(fontSizeInput.value, 10);
-      const bg = bgColorInput.value;
-      if (!Number.isNaN(fontSize)) {
-        document.documentElement.style.fontSize = fontSize + "px";
-      }
-      if (bg) {
-        document.documentElement.style.setProperty("--surface", bg);
-      }
-    });
-  }
-
-  const dlKey = "resumeDownloadCount";
-  function updateDl() {
-    const count = parseInt(localStorage.getItem(dlKey) || "0", 10);
-    if (downloadCountEl) downloadCountEl.textContent = String(count);
-  }
-  if (resumeDownload) {
-    resumeDownload.addEventListener("click", () => {
-      const c = parseInt(localStorage.getItem(dlKey) || "0", 10) + 1;
-      localStorage.setItem(dlKey, String(c));
-      setTimeout(updateDl, 0);
-    });
-  }
-  updateDl();
-
-  const edu = [{ school: "Northern Arizona University", degree: "B.S. Computer Science", years: "2024–2028 (expected)" }];
-  const exp = [{ role: "Student Developer", org: "NAU (Projects)", years: "2024–Present" }];
-
   function renderTable(rows, mount) {
-    if (!mount || !rows.length) return;
-    const cols = Object.keys(rows[0]);
-    const table = document.createElement("table");
-    const thead = document.createElement("thead");
-    const tbody = document.createElement("tbody");
-    const trh = document.createElement("tr");
-    cols.forEach((c) => {
-      const th = document.createElement("th");
-      th.textContent = c[0].toUpperCase() + c.slice(1);
+    if (!mount || !rows || rows.length === 0) return;
+    var keys = Object.keys(rows[0]);
+    var table = document.createElement("table");
+    var thead = document.createElement("thead");
+    var tbody = document.createElement("tbody");
+
+    var trh = document.createElement("tr");
+    for (var i = 0; i < keys.length; i++) {
+      var th = document.createElement("th");
+      var name = keys[i];
+      th.textContent = name.charAt(0).toUpperCase() + name.slice(1);
       trh.appendChild(th);
-    });
+    }
     thead.appendChild(trh);
-    rows.forEach((r) => {
-      const tr = document.createElement("tr");
-      cols.forEach((c) => {
-        const td = document.createElement("td");
-        td.textContent = String(r[c]);
+
+    for (var r = 0; r < rows.length; r++) {
+      var tr = document.createElement("tr");
+      for (var c = 0; c < keys.length; c++) {
+        var td = document.createElement("td");
+        td.textContent = rows[r][keys[c]];
         tr.appendChild(td);
-      });
+      }
       tbody.appendChild(tr);
-    });
+    }
+
     table.appendChild(thead);
     table.appendChild(tbody);
     mount.innerHTML = "";
     mount.appendChild(table);
   }
 
+  // actions
+  function addSkill() {
+    var val = (skillInput.value || "").trim();
+    if (val && skills.indexOf(val) === -1) {
+      skills.push(val);
+      renderSkills();
+    }
+    skillInput.value = "";
+    skillInput.focus();
+  }
+
+  function onSkillInputKey(e) {
+    if (e.key === "Enter") addSkill();
+    if (e.key === "Escape") skillInput.value = "";
+  }
+
+  function onNavClick(e) {
+    var href = this.getAttribute("href");
+    if (!href || href.charAt(0) !== "#") return;
+    var target = document.querySelector(href);
+    if (!target) return;
+    e.preventDefault();
+    var y = target.getBoundingClientRect().top + window.pageYOffset - 80;
+    window.scrollTo({ top: y, behavior: "smooth" });
+  }
+
+  function sortByDeadline() {
+    projects.sort(function (a, b) { return a.deadline - b.deadline; });
+    renderProjects();
+  }
+
+  function toggleTheme() {
+    document.body.classList.toggle("dark");
+  }
+
+  function applyStyles() {
+    var size = parseInt(fontSizeInput.value, 10);
+    var bg = bgColorInput.value;
+    if (!isNaN(size)) {
+      document.documentElement.style.fontSize = size + "px";
+    }
+    if (bg) {
+      document.documentElement.style.setProperty("--surface", bg);
+      document.body.style.background = "var(--surface)";
+    }
+  }
+
+  function incrementDownloadCount() {
+    downloadCount = downloadCount + 1;
+    updateDownloadCount();
+  }
+
+  function updateDownloadCount() {
+    if (downloadCountEl) downloadCountEl.textContent = String(downloadCount);
+  }
+
+  // events
+  if (addSkillBtn) addSkillBtn.addEventListener("click", addSkill);
+  if (skillInput) skillInput.addEventListener("keydown", onSkillInputKey);
+
+  var navLinks = document.querySelectorAll(".nav-item");
+  for (var i = 0; i < navLinks.length; i++) {
+    navLinks[i].addEventListener("click", onNavClick);
+  }
+
+  if (projectsSection && !projectsSection.querySelector(".sort-deadline")) {
+    var btn = document.createElement("button");
+    btn.className = "sort-deadline";
+    btn.type = "button";
+    btn.textContent = "Sort by Deadline";
+    btn.addEventListener("click", sortByDeadline);
+    projectsSection.insertBefore(btn, projectsSection.firstChild);
+  }
+
+  if (themeToggle) themeToggle.addEventListener("click", toggleTheme);
+  if (applyStylesBtn) applyStylesBtn.addEventListener("click", applyStyles);
+  if (resumeDownload) resumeDownload.addEventListener("click", incrementDownloadCount);
+
+  // simple data for tables
+  var edu = [{ school: "Northern Arizona University", degree: "B.S. Computer Science", years: "2024–2028 (expected)" }];
+  var exp = [{ role: "Student Developer", org: "NAU (Projects)", years: "2024–Present" }];
+
+  // initial paint
   renderSkills();
   renderProjects();
   renderTable(edu, educationMount);
   renderTable(exp, experienceMount);
-});
+  updateDownloadCount();
+}
 
 
 
