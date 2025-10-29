@@ -1,16 +1,15 @@
 :root {
   --header-height: 88px;
   --footer-height: 72px;
-  --surface: #fff;
-  --text: #111;
-  --border: #ddd;
+  --surface: #ffffff;
+  --text: #111111;
+  --border: #dddddd;
   --muted: #f8fafc;
   --link: #0ea5e9;
 }
 
-html {
-  scroll-behavior: smooth;
-}
+html { scroll-behavior: smooth; }
+html { font-size: 16px; }
 
 .layout {
   display: grid;
@@ -93,9 +92,7 @@ aside {
   border-radius: 0.5rem;
 }
 
-.nav-item:hover {
-  background: #f1f5f9;
-}
+.nav-item:hover { background: #f1f5f9; }
 
 .resume-button {
   display: block;
@@ -108,9 +105,7 @@ aside {
   transition: background-color 0.3s ease;
 }
 
-.resume-button:hover {
-  background: #0284c7;
-}
+.resume-button:hover { background: #0284c7; }
 
 .download-counter {
   font-size: 0.9rem;
@@ -152,23 +147,14 @@ main {
   border-radius: 0.6rem;
   text-align: center;
   transition: background-color 0.3s ease, transform 0.3s ease;
+  cursor: pointer;
 }
 
-.skill:hover {
-  background: #eef6ff;
-  transform: scale(1.05);
-}
+.skill:hover { background: #eef6ff; transform: scale(1.05); }
 
-.featured-skill {
-  grid-column: span 2;
-  font-weight: 700;
-}
+.featured-skill { grid-column: span 2; font-weight: 700; }
 
-.skill-input {
-  display: flex;
-  gap: 0.5rem;
-  margin-top: 0.25rem;
-}
+.skill-input { display: flex; gap: 0.5rem; margin-top: 0.25rem; }
 
 .projects-grid {
   display: grid;
@@ -191,20 +177,11 @@ main {
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
-.project img:hover {
-  transform: scale(1.03);
-  opacity: 0.95;
-}
+.project img:hover { transform: scale(1.03); opacity: 0.95; }
 
-.featured-project {
-  grid-column: span 2;
-}
+.featured-project { grid-column: span 2; }
 
-.float-gallery::after {
-  content: "";
-  display: table;
-  clear: both;
-}
+.float-gallery::after { content: ""; display: table; clear: both; }
 
 .float-gallery img {
   float: left;
@@ -215,9 +192,7 @@ main {
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-.float-gallery img:last-child {
-  margin-right: 0;
-}
+.float-gallery img:last-child { margin-right: 0; }
 
 .mt-1 { margin-top: 0.75rem; }
 
@@ -228,9 +203,7 @@ main {
   margin-top: 0.6rem;
 }
 
-#projectsDynamic .status {
-  font-weight: 600;
-}
+#projectsDynamic .status { font-weight: 600; }
 
 .footer {
   grid-area: footer;
@@ -254,22 +227,10 @@ main {
   align-items: center;
 }
 
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 0.5rem;
-  background: var(--surface);
-}
-th, td {
-  border: 1px solid #e5e7eb;
-  padding: 0.5rem;
-  text-align: left;
-}
-th {
-  background: #f3f4f6;
-}
+table { width: 100%; border-collapse: collapse; margin-top: 0.5rem; background: var(--surface); }
+th, td { border: 1px solid #e5e7eb; padding: 0.5rem; text-align: left; }
+th { background: #f3f4f6; }
 
-/* Bonus: light/dark theme toggle */
 body.dark {
   --surface: #121212;
   --text: #e5e7eb;
@@ -289,50 +250,18 @@ body.dark {
       "main"
       "footer";
   }
-
-  aside {
-    border-right: none;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .nav {
-    flex-direction: row;
-    height: auto;
-    overflow-x: auto;
-    justify-content: space-evenly;
-  }
-
-  .nav-item {
-    flex: 0 0 auto;
-    white-space: nowrap;
-  }
-
-  .projects-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .float-gallery img {
-    width: 48%;
-    margin-right: 4%;
-  }
-
-  .float-gallery img:nth-child(2n) {
-    margin-right: 0;
-  }
+  aside { border-right: none; border-bottom: 1px solid var(--border); }
+  .nav { flex-direction: row; height: auto; overflow-x: auto; justify-content: space-evenly; }
+  .nav-item { flex: 0 0 auto; white-space: nowrap; }
+  .projects-grid { grid-template-columns: 1fr; }
+  .float-gallery img { width: 48%; margin-right: 4%; }
+  .float-gallery img:nth-child(2n) { margin-right: 0; }
 }
 
 @media (max-width: 480px) {
-  .projects-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .float-gallery img {
-    width: 100%;
-    margin-right: 0;
-  }
+  .projects-grid { grid-template-columns: 1fr; }
+  .float-gallery img { width: 100%; margin-right: 0; }
 }
-
-
 
 
 
